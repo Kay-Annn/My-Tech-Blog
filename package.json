@@ -1,0 +1,25 @@
+{
+  "name": "my-tech-blog",
+  "version": "1.0.0",
+  "description": "CMS-style blog site to publish articles and blog post",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kay-Annn/My-Tech-Blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kay-Annn/My-Tech-Blog/issues"
+  },
+  "homepage": "https://github.com/Kay-Annn/My-Tech-Blog#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express-handlebars": "^6.0.6",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.26.0"
+  }
+}
