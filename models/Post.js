@@ -15,24 +15,21 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
+    post_description: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     author_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-    is_Online: {
-      type: DataTypes.BOOLEAN,
-    }
   },
   {
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: 'dish'
+    modelName: 'Post'
   }
 );
 
-module.exports = Dish;
+module.exports = Post;
