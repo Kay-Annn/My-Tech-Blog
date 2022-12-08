@@ -4,28 +4,28 @@ const { Post } = require('../models');
 const postData = [
   {
     post_name: 'HTML',
-    description: 'A programming language that is used to display information to users. HTML stands for Hyper Text Markup Language.',
-    author_name:'Kay'
+    post_description: 'A programming language that is used to display information to users. HTML stands for Hyper Text Markup Language.',
+    user_id:2
   },
   {
     post_name: 'JavaScript',
-    description: 'A programming language that is used to write logics.',
-    author_name:'Kay'
+    post_description: 'A programming language that is used to write logics.',
+    user_id:1
   },
   {
     post_name: 'CSS',
-    description: 'A programming language that stands for cascading style sheet.',
-    author_name:'Quen'
+    post_description: 'A programming language that stands for cascading style sheet.',
+    user_id:2
   },
   {
     post_name: 'Node.js',
-    description: 'This is filler text, will update soon.',
-    author_name:'Quen'
+    post_description: 'This is filler text, will update soon.',
+    user_id:1
   },
   {
     post_name: 'MySql',
-    description: 'This is filler text, will update soon.',
-    author_name:'Quen'
+    post_description: 'This is filler text, will update soon.',
+    user_id:1
   },
 ];
 
