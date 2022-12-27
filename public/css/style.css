@@ -1,0 +1,9 @@
+.custom-centered{
+    margin:0 auto;
+    width:300px;
+   }
+  
+   .d-flex{
+    display: flex;
+    justify-content: center;
+   }
