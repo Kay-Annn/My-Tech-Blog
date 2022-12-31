@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const { User, Post, Comments } = require('../../models');
 
-
 router.post('/getUser', async (req, res) => {
   try {
-
     // check user e-mail exist
     const userInfo = await User.findOne({
       where: { email: req.body.email },
@@ -16,7 +14,6 @@ router.post('/getUser', async (req, res) => {
     }
 
     const validPassword = userInfo.checkPassword(req.body.password);
-
 
     if (!validPassword) {
       console.log(req.body.password)
@@ -39,11 +36,8 @@ router.post('/getUser', async (req, res) => {
   }
 });
 
-
-
-router.post('/signupUser', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    // check user e-mail exist
     console.log(req.body.username)
     const userInfo = await User.create({
       username: req.body.username,
@@ -53,16 +47,6 @@ router.post('/signupUser', async (req, res) => {
     );
 
     console.log(userInfo)
-
-    if (userInfo.dataValues) {
-      const role = await Employee.create({
-        role: req.body.role,
-        user_id: userInfo.dataValues.id
-      }
-      );
-    }
-
-
 
     req.session.save(() => {
       req.session.user_id = userInfo.username;
@@ -77,7 +61,6 @@ router.post('/signupUser', async (req, res) => {
   }
 });
 
-
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     // Remove the session variables
@@ -89,5 +72,20 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+router.post('/newpost', async (req, res) => {
+  try {
+    const addPost = await Post.create({
+    Title: req.body.post_name,
+    Content: req.body.post_description
+    }
+    );
+
+  } catch (error) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+
+})
 
 module.exports = router;
