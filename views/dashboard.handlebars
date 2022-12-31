@@ -1,0 +1,14 @@
+<div>
+  {{#each posts as |post| }}
+  <div class="card bg-light mb-3">
+    <div class="card-header bg-warning">{{post.post_name}}</div>
+    <div class="card-body">
+      <p class="card-text">{{post.post_description}}</p>
+    </div>
+  </div>
+  {{/each}}
+
+  <div class="d-flex justify-content:centre">
+    <a class="btn btn bg-warning btn-lg newpost" href="/newpost" role="button">+ New Post</a>
+  </div>
+</div>

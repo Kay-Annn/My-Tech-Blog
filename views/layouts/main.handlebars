@@ -14,22 +14,21 @@
 <body>
   <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
-<nav class="bg-warning p-2">
+      <nav class="bg-warning p-2" style="width: 100%;">
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a href="/User">Profile</a> |
-        <button class="no-button" id="logout">logout</button>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout" id="logout">Logout</a>
         {{else}}
         <a href="/">Home</a>
-        <a href="/">Dashboard</a>
-        <a href="/">Logout</a>
         {{/if}}
         <div>
-        <button class="btn bg-light">
-           <h1 class="text-warning">The Tech Blog
-      </h1></button>
-     </div>
-      
+          <button class="btn bg-light">
+            <h1 class="text-warning">The Tech Blog
+            </h1>
+          </button>
+        </div>
       </nav>
     </header>
     <main class="container container-fluid mt-5">
@@ -37,7 +36,7 @@
       {{{ body }}}
     </main>
     <footer>
-      
+
     </footer>
   </div>
 
