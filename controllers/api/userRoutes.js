@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comments } = require('../../models');
+const checkAuth = require('../../utils/auth');
 
 router.post('/getUser', async (req, res) => {
   try {
@@ -8,6 +9,8 @@ router.post('/getUser', async (req, res) => {
       where: { email: req.body.email },
     });
 
+    console.log(userInfo)
+    
     if (!userInfo) {
       res.status(400).json({ message: 'email incorrect, please try again' });
       return;
@@ -24,11 +27,13 @@ router.post('/getUser', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = userInfo.username;
+      req.session.user_id = userInfo.id;
       req.session.logged_in = true;
 
       res.status(200).json(userInfo);
     });
+
+  console.log(req.session.user_id)
 
   } catch (err) {
     console.log(err)
@@ -38,7 +43,6 @@ router.post('/getUser', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
-    console.log(req.body.username)
     const userInfo = await User.create({
       username: req.body.username,
       email: req.body.email,
@@ -49,7 +53,7 @@ router.post('/signup', async (req, res) => {
     console.log(userInfo)
 
     req.session.save(() => {
-      req.session.user_id = userInfo.username;
+      req.session.user_id = userInfo.id;
       req.session.logged_in = true;
 
       res.status(200).json(userInfo);
@@ -73,19 +77,5 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.post('/newpost', async (req, res) => {
-  try {
-    const addPost = await Post.create({
-    Title: req.body.post_name,
-    Content: req.body.post_description
-    }
-    );
-
-  } catch (error) {
-    console.log(err)
-    res.status(500).json(err);
-  }
-
-})
 
 module.exports = router;
