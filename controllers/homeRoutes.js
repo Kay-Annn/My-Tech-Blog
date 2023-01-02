@@ -7,9 +7,9 @@ router.get('/', async (req, res) => {
     const postData = await Post.findAll({
       attributes: [
         'id',
-        'post_name',
+        'title',
         'created_at',
-        'post_description'
+        'content'
       ],
       include: [
         {
@@ -101,52 +101,56 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/dashboard', checkAuth, async (req, res) => {
-
-  const postInfo = await Post.findAll({
-    attributes: [
-      'id',
-      'post_name',
-      'created_at',
-      'post_description'
-    ],
-    include: [
-      {
-        model: Comments,
-        attributes: ['id',
-          'comment_content',
-          'user_id',
-          'post_id',
-          'created_at']
+  try {
+    const postInfo = await Post.findAll({
+      where: {
+        user_id: req.session.user_id
       },
-      {
-        model: User,
-        attributes: ['username'],
-      }
-    ],
-  });
-  const post = postInfo.map((post) => post.get({ plain: true }));
-
-  if (postInfo) {
-
-    res.render('dashboard', {
-      post,
-      logged_in: true
+      attributes: [
+        'id',
+        'title',
+        'created_at',
+        'content'
+      ],
+      include: [
+        {
+          model: Comments,
+          attributes: ['id',
+            'comment_content',
+            'user_id',
+            'post_id',
+            'created_at']
+        },
+        {
+          model: User,
+          attributes: ['username'],
+        }
+      ],
     });
-  }
-  else {
-    res.redirect('/login');
-  }
+    const post = postInfo.map((post) => post.get({ plain: true }));
 
+    if (post) {
+      res.render('dashboard', {
+        post,
+        logged_in: true
+      });
+    }
+    else {
+      res.redirect('/login');
+    }
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
 });
 
-
-router.get('/newpost', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/newpost');
-    return;
+router.get('/newpost', checkAuth, (req, res) => {
+  // If the user is already logged in, redirect the request to newpost route
+  res.render('newpost', {
+    logged_in: true
   }
-  res.render('newpost');
+  );
 });
 
 module.exports = router;
