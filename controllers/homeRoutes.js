@@ -38,44 +38,59 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/post/:id', async (req, res) => {
+router.get("/post/:id", checkAuth, async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {
+    console.log("I am here ghghbh")
+    const singlePost = await Post.findOne({
+      where: {
+        id: req.params.id
+      },
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "created_at"
+      ],
       include: [
         {
           model: User,
-          attributes: ['username'],
+          attributes: {
+            exclude: ["password"]
+          }
         },
-      ],
+        {
+          model: Comments,
+          attributes: [
+            "comment_content",
+            "created_at"
+          ],
+          include: {
+            model: User,
+            attributes: {
+              exclude: ["password"]
+            }
+          }
+        }
+      ]
     });
 
-    const post = postData.get({ plain: true });
+    console.log(singlePost)
 
-    res.render('Post', {
-      ...Post,
+    const posts = singlePost.get({ plain: true });
+
+    if (posts){
+    res.render('postById', {
+      posts,
       logged_in: req.session.logged_in
     });
-  } catch (err) {
-    res.status(500).json(err);
   }
-});
-
-// Use checkAuth middleware to prevent access to route
-router.get('/user', checkAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('user', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
+  else{
+    res.status(404).json({ message: "No post with that ID" });
+    return;
+  }
+  }
+   catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
