@@ -2,7 +2,7 @@
   {{#each post as |post| }}
   <div class="card bg-light mb-3">
     <div class="card-header bg-warning">Created by {{post.User.username}} on {{post.created_at}}</div>
-    <a href="/post/{{id}}" class="card-header bg-warning has-text-black">{{post.title}} </a>
+    <a onclick="postById(`{{post.id}}`)" class="card-header bg-warning has-text-black">{{post.title}} </a>
     <div class="card-body">
       <p class="card-text">{{post.content}}</p>
     </div>
@@ -14,3 +14,5 @@
   </div>
 
 </div>
+
+<script src="/js/postbyid.js"></script>
