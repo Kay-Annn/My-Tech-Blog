@@ -8,8 +8,6 @@ router.post('/getUser', async (req, res) => {
     const userInfo = await User.findOne({
       where: { email: req.body.email },
     });
-
-    console.log(userInfo)
     
     if (!userInfo) {
       res.status(400).json({ message: 'email incorrect, please try again' });
@@ -19,7 +17,6 @@ router.post('/getUser', async (req, res) => {
     const validPassword = userInfo.checkPassword(req.body.password);
 
     if (!validPassword) {
-      console.log(req.body.password)
       res
         .status(400)
         .json({ message: 'Incorrect email or password, please try again' });
@@ -50,7 +47,7 @@ router.post('/signup', async (req, res) => {
     }
     );
 
-    console.log(userInfo)
+    
 
     req.session.save(() => {
       req.session.user_id = userInfo.id;
