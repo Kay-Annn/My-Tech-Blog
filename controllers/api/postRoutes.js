@@ -23,84 +23,39 @@ router.post('/newpost', async (req, res) => {
     }
   })
 
-  // router.get('/:id', async (req, res) => {
-    
-  //   try {
-  //     const postInfo = await Post.findOne({
-  //       attributes: [
-  //         'id',
-  //         'title',
-  //         'created_at',
-  //         'content'
-  //       ],
-  //       where: {
-  //         id: req.params.id
-  //       },
-  //       include: [
-  //         {
-  //           model: Comments,
-  //           attributes: ['id',
-  //             'comment_content',
-  //             'user_id',
-  //             'post_id',
-  //             'created_at']
-  //         },
-  //         {
-  //           model: User,
-  //           attributes: ['username'],
-  //         }
-  //       ],
-  //     });
+
+router.put('/:id', checkAuth, async (req,res) => {
+    // update a post by its `id` value
+    Post.update (
+      {
+        content: req.body.content,
+    },
   
-  //     if (!postInfo) {
-  //       res.status(404).json({message:"No post available with the requested id"});
-  //       return
-  //     }
-
-  //     console.log(postInfo)
-
-  //     req.session.save(() => {
-  //       req.session.logged_In = true;
-  //       res.status(200).json(postInfo);
-  //     });
-  //   }
-  //   catch (err) {
-  //     console.log(err)
-  //     res.status(500).json(err);
-  //   }
-  // });
-
-// router.put('/:id', checkAuth, async (req,res) => {
-//     // update a post by its `id` value
-//     Post.update (
-//       {
-//         content: req.body.content,
-//     },
-  
-//   {
-//     where:{
-//       id:req.params.id
-//     },
-//   }
-//   )
-//   .then ((updatedPost) => {
-//     res.json(updatedPost)
-//   })
-//     .catch((err)=>res.json(err));
-//   });
+  {
+    where:{
+      id:req.params.id
+    },
+  }
+  )
+  .then ((updatedPost) => {
+    res.json(updatedPost)
+  })
+    .catch((err)=>res.json(err));
+  });
 
 
-//   router.delete('/:id', checkAuth, async (req,res) => {
-//     // update a comment by its `id` value
-//     Post.destroy ({
-//     where:{
-//       id:req.params.id
-//     },
-//   }
-//   )
-//   .then ((deletedPost) => {
-//     res.json(deletedPost)
-//   })
-//     .catch((err)=>res.json(err));
-//   });
+  router.delete('/:id', checkAuth, async (req,res) => {
+    // update a comment by its `id` value
+    Post.destroy ({
+    where:{
+      id:req.params.id
+    },
+  }
+  )
+  .then ((deletedPost) => {
+    res.json(deletedPost)
+  })
+    .catch((err)=>res.json(err));
+  });
+
   module.exports = router;

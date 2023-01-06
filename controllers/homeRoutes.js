@@ -39,8 +39,8 @@ router.get('/', async (req, res) => {
 });
 
 router.get("/post/:id", checkAuth, async (req, res) => {
+  console.log ("this is the id", req.params.id)
   try {
-    console.log("I am here ghghbh")
     const singlePost = await Post.findOne({
       where: {
         id: req.params.id
@@ -74,20 +74,14 @@ router.get("/post/:id", checkAuth, async (req, res) => {
       ]
     });
 
-    console.log(singlePost)
-
+   console.log("single post is " , singlePost) 
+   
     const posts = singlePost.get({ plain: true });
-
-    if (posts){
+  
     res.render('postById', {
       posts,
       logged_in: req.session.logged_in
     });
-  }
-  else{
-    res.status(404).json({ message: "No post with that ID" });
-    return;
-  }
   }
    catch (err) {
     console.log(err)
