@@ -38,9 +38,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get("/post/:id", checkAuth, async (req, res) => {
-  console.log ("this is the id", req.params.id)
+router.get("/post/:id", async (req, res) => {
   try {
+    console.log ("this is the id", req.params)
+    if(!req?.params?.id) throw new Error("POST ID MISSING")
     const singlePost = await Post.findOne({
       where: {
         id: req.params.id
@@ -77,16 +78,28 @@ router.get("/post/:id", checkAuth, async (req, res) => {
    console.log("single post is " , singlePost) 
    
     const posts = singlePost.get({ plain: true });
-  
-    res.render('postById', {
-      posts,
-      logged_in: req.session.logged_in
+
+    req.session.save(() => {
+      req.session.currentpost = posts;
+      res.status(200).json(singlePost);
     });
   }
    catch (err) {
     console.log(err)
     res.status(500).json(err);
   }
+});
+
+router.get('/currentpost', checkAuth, (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+const posts = req.session.currentpost
+
+console.log("This is posts",posts)
+
+  res.render('postbyid', {
+    posts,
+    logged_in: true
+  });
 });
 
 router.get('/login', (req, res) => {
