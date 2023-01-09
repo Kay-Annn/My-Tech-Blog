@@ -1,8 +1,8 @@
 <div>
   {{#each post as |post| }}
   <div class="card bg-light mb-3">
-    <div class="card-header bg-warning">Created by {{post.User.username}} on {{post.created_at}}</div>
-    <a onclick="postById(`{{post.id}}`)" class="card-header bg-warning has-text-black">{{post.title}} </a>
+    <div class="card-header bg-custom-1">Created by {{post.User.username}} on {{post.created_at}}</div>
+    <a onclick="postById(`{{post.id}}`)" class="card-header has-text-black">{{post.title}} </a>
     <div class="card-body">
       <p class="card-text">{{post.content}}</p>
     </div>
@@ -10,7 +10,7 @@
   {{/each}}
 
  <div class="d-flex justify-content:centre">
-    <a class="btn btn bg-warning btn-lg newpost" href="/newpost" role="button">+ New Post</a>
+    <a class="btn btn bg-custom-1 btn-lg newpost" href="/newpost" role="button">+ New Post</a>
   </div>
 
 </div>
