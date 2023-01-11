@@ -6,14 +6,13 @@
       <div class="card-body">
         <p class="post-content">{{posts.content}}</p>
       </div>
-      <div class="d-flex justify-content:center ">
-        <a onclick="updatePost()" class="bg-warning">Update Post</a>
-        <a  class="bg-warning">Delete Post</a>
+      <div class="d-flex justify-content-around">
+        <a onclick="displayModal()" class="bg-warning">Update Post</a>
+        <a class="bg-warning">Delete Post</a>
       </div>
     </div>
   </div>
 </form>
-
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -21,12 +20,12 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <p>Update your post here!</p>
-    <form id="myForm" action="#">
+    <form class="myForm" action="#">
       <input type="text" class="title-updatepost"/>
       <input type="text" class="content-updatepost"/>
-      <input type="submit" id="submit" value="Update">
+      <button type="submit" id="updatebtn2" data-id="{{posts.id}}">Update</button> 
     </form>
   </div>
 </div>
 
-<script src="/js/update.js"></script>
+<script src="/js/updateButton.js"></script>
