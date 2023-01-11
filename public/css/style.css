@@ -40,3 +40,8 @@
     width: 80%; /* Could be more or less, depending on screen size */
   }
   
+
+  #updatebtn2 {
+width: 65px;
+height:25px;
+  }
