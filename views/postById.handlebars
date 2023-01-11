@@ -8,7 +8,7 @@
       </div>
       <div class="d-flex justify-content-around">
         <a onclick="displayModal()" class="bg-warning">Update Post</a>
-        <a class="bg-warning">Delete Post</a>
+        <a onclick="deletePost()" class="bg-warning deletebtn" data-id="{{posts.id}}">Delete Post</a>
       </div>
     </div>
   </div>
@@ -29,3 +29,4 @@
 </div>
 
 <script src="/js/updateButton.js"></script>
+<script src="/js/delete.js"></script>

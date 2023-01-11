@@ -24,7 +24,6 @@ router.put('/:id', checkAuth, async (req, res) => {
   // update a post by its `id` value
   try {
     const postInfo = await Post.update(
-  
       {
         title: req.body.title,
         content: req.body.content,
