@@ -17,5 +17,3 @@ const deletePost = async () => {
         alert(response.statusText);
       }
 };
-
-// document.querySelector('.deletebtn').addEventListener('click', deletePost);
